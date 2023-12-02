@@ -1,28 +1,22 @@
 package com.repoviewer.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource(value = "classpath:github.properties")
-@ConfigurationProperties(prefix = "github")
+@ConfigurationProperties("github")
 public class ApiConfigProperties {
 
-    @Value("${weekly-commit-url}")
     private String weeklyCommitUrl;
 
-    @Value("${last-year-commit-url}")
     private String lastYearCommitUrl;
 
-    @Value("${all-contributor-commit-url}")
     private String allContributorCommitUrl;
 
-    @Value("${weekly-commit-participation-url}")
-    private String weeklyParticipationUrl;
+    private String weeklyCommitParticipationUrl;
 
-    @Value("${hourly-commit-url}")
     private String hourlyCommitUrl;
 
     public String getWeeklyCommitUrl() {
@@ -37,11 +31,31 @@ public class ApiConfigProperties {
         return allContributorCommitUrl;
     }
 
-    public String getWeeklyParticipationUrl() {
-        return weeklyParticipationUrl;
+    public String getWeeklyCommitParticipationUrl() {
+        return weeklyCommitParticipationUrl;
     }
 
     public String getHourlyCommitUrl() {
         return hourlyCommitUrl;
+    }
+
+    public void setWeeklyCommitUrl(String weeklyCommitUrl) {
+        this.weeklyCommitUrl = weeklyCommitUrl;
+    }
+
+    public void setLastYearCommitUrl(String lastYearCommitUrl) {
+        this.lastYearCommitUrl = lastYearCommitUrl;
+    }
+
+    public void setAllContributorCommitUrl(String allContributorCommitUrl) {
+        this.allContributorCommitUrl = allContributorCommitUrl;
+    }
+
+    public void setWeeklyCommitParticipationUrl(String weeklyCommitParticipationUrl) {
+        this.weeklyCommitParticipationUrl = weeklyCommitParticipationUrl;
+    }
+
+    public void setHourlyCommitUrl(String hourlyCommitUrl) {
+        this.hourlyCommitUrl = hourlyCommitUrl;
     }
 }

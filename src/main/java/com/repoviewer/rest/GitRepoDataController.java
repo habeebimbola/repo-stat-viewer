@@ -25,7 +25,30 @@ public class GitRepoDataController {
     @GetMapping(path = "/dailyCommit/{owner}/{repo}")
     public ResponseEntity<?> getWeeklyCommit(@PathVariable("owner") String owner, @PathVariable("repo") String repo)
     {
-           LOGGER.info("Hiting the {0} endpoint", apiConfigProperties.getAllContributorCommitUrl());
+           LOGGER.info( apiConfigProperties.getAllContributorCommitUrl());
           return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/lastYear/{owner}/{repo}")
+    public ResponseEntity<?> getLastYearCommit( @PathVariable("owner") String repoOwner, @PathVariable("repo") String repoName)
+    {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/allContributor/{owner}/{repo}")
+    public ResponseEntity<?> getAllContributor(@PathVariable("owner") String repoOwner, @PathVariable("repo") String repoName)
+    {
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping(path = "/weeklyCommitParticipation/{owner}/{repo}")
+    public ResponseEntity<?> getWeeklyCommitParticipation(@PathVariable("owner") String repoOwner, @PathVariable("repo") String repoName)
+    {
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping(path = "/hourlyCommit/{owner}/{repo}")
+    public ResponseEntity<?> getHourlyCommit(@PathVariable("owner") String repoOwner, @PathVariable("repo") String repoName){
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

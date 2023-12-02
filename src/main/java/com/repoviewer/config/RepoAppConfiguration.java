@@ -8,7 +8,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@PropertySource("classpath:github.properties")
 public class RepoAppConfiguration {
 
     @Bean
@@ -18,9 +17,4 @@ public class RepoAppConfiguration {
         return restTemplate;
     }
 
-//    @Bean
-//    private static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer()
-//    {
-//        return new PropertySourcesPlaceholderConfigurer();
-//    }
 }
