@@ -1,0 +1,36 @@
+version: '2'
+services:
+  repo-statviewer:
+    container_name: repo-statviewer-api
+    build:
+      context: .
+    depends_on:
+      - repo-statviewer-db
+    expose:
+      - '9000:9000'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://repo-statviewer-db:5432/repo-statviewer
+      - SPRING_DATASOURCE_USERNAME=repo-statviewer
+      - SPRING_DATASOURCE_PASSWORD=repo-statviewer
+    networks:
+      repo-statviewer-network:
+
+  repo-statviewer-db:
+    image: postgres
+    container_name: repo-statviewer-db
+    ports:
+      - "15432:5432"
+    environment:
+      - POSTGRES_USER=repo-statviewer
+      - POSTGRES_PASSWORD=repo-statviewer
+      - POSTGRES_DB=repo-statviewer
+    volumes:
+      - repo_statviewer_api_data:/var/docker/mysql
+    networks:
+      repo-statviewer-network:
+
+volumes:
+  repo_statviewer_api_data:
+
+networks:
+  repo-statviewer-network:
