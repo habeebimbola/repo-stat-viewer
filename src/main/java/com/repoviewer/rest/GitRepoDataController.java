@@ -1,14 +1,17 @@
 package com.repoviewer.rest;
 
 import com.repoviewer.config.ApiConfigProperties;
-import com.repoviewer.domain.dto.ApiRequestDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/repo-stat")
@@ -22,11 +25,19 @@ public class GitRepoDataController {
     @Autowired
     private ApiConfigProperties apiConfigProperties;
 
+    private final Pattern githubMetadataValidator = Pattern.compile("([A-Za-z]+\\-?[A-Za-z]+)+");
+
     @GetMapping(path = "/dailyCommit/{owner}/{repo}")
-    public ResponseEntity<?> getWeeklyCommit(@PathVariable("owner") String owner, @PathVariable("repo") String repo)
+    public ResponseEntity<?> getWeeklyCommit(@PathVariable("owner") String owner,  @PathVariable("repo") String repo)
     {
-           LOGGER.info( apiConfigProperties.getAllContributorCommitUrl());
-          return ResponseEntity.status(HttpStatus.OK).build();
+        LOGGER.info(apiConfigProperties.getGitToken());
+
+        if(!githubMetadataValidator.matcher(owner).matches() || !githubMetadataValidator.matcher(repo).matches())
+        {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/lastYear/{owner}/{repo}")

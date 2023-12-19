@@ -19,6 +19,12 @@ public class ApiConfigProperties {
 
     private String hourlyCommitUrl;
 
+    private String acceptVersion;
+
+    private String acceptMediaType;
+
+    private String gitToken;
+
     public String getWeeklyCommitUrl() {
         return weeklyCommitUrl;
     }
@@ -39,6 +45,18 @@ public class ApiConfigProperties {
         return hourlyCommitUrl;
     }
 
+    public String getAcceptVersion() {
+        return acceptVersion;
+    }
+
+    public String getAcceptMediaType() {
+        return acceptMediaType;
+    }
+
+    public String getGitToken() {
+        return gitToken;
+    }
+
     public void setWeeklyCommitUrl(String weeklyCommitUrl) {
         this.weeklyCommitUrl = weeklyCommitUrl;
     }
@@ -57,5 +75,17 @@ public class ApiConfigProperties {
 
     public void setHourlyCommitUrl(String hourlyCommitUrl) {
         this.hourlyCommitUrl = hourlyCommitUrl;
+    }
+
+    public void setAcceptVersion(String acceptVersion) {
+        this.acceptVersion = acceptVersion;
+    }
+
+    public void setAcceptMediaType(String acceptMediaType) {
+        this.acceptMediaType = acceptMediaType;
+    }
+
+    public void setGitToken(String gitToken) {
+        this.gitToken = gitToken;
     }
 }
