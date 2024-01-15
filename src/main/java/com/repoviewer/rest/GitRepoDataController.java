@@ -1,15 +1,20 @@
 package com.repoviewer.rest;
 
 import com.repoviewer.config.ApiConfigProperties;
+import com.repoviewer.domain.dto.WeeklyCommitResponseDto;
+import com.repoviewer.domain.validation.ApiRequestValidator;
+import com.repoviewer.domain.validation.ApiValidationErrorBuilder;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,19 +30,29 @@ public class GitRepoDataController {
     @Autowired
     private ApiConfigProperties apiConfigProperties;
 
-    private final Pattern githubMetadataValidator = Pattern.compile("([A-Za-z]+\\-?[A-Za-z]+)+");
-
     @GetMapping(path = "/dailyCommit/{owner}/{repo}")
-    public ResponseEntity<?> getWeeklyCommit(@PathVariable("owner") String owner,  @PathVariable("repo") String repo)
+    public ResponseEntity<?> getWeeklyCommit( @PathVariable("owner") String owner,
+                                             @PathVariable("repo") String repo)
     {
         LOGGER.info(apiConfigProperties.getGitToken());
 
-        if(!githubMetadataValidator.matcher(owner).matches() || !githubMetadataValidator.matcher(repo).matches())
+        if(ApiValidationErrorBuilder.wrongInputParameters(owner,repo))
         {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(ApiValidationErrorBuilder.fromStringErrors(List.of("Invalid Owner/Repo Name Format.")));
         }
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        RequestEntity<?> getWeekCommitRequest = RequestEntity.get(apiConfigProperties.getWeeklyCommitUrl(),  owner, repo).
+                header("Accept",apiConfigProperties.getAcceptMediaType()).
+                header("Authorization", "Bearer "+apiConfigProperties.getGitToken()).
+                header(apiConfigProperties.getAcceptVersion()).
+                build();
+
+       ResponseEntity<WeeklyCommitResponseDto> weeklyCommitResponseEntity = restTemplate.exchange(URI.create(apiConfigProperties.getWeeklyCommitUrl()),
+                HttpMethod.GET,
+                getWeekCommitRequest,
+                WeeklyCommitResponseDto.class);
+        LOGGER.info("Status Code: "+weeklyCommitResponseEntity.getStatusCode());
+        return ResponseEntity.status(weeklyCommitResponseEntity.getStatusCode()).build();
     }
 
     @GetMapping("/lastYear/{owner}/{repo}")
@@ -62,4 +77,6 @@ public class GitRepoDataController {
     public ResponseEntity<?> getHourlyCommit(@PathVariable("owner") String repoOwner, @PathVariable("repo") String repoName){
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+
 }
