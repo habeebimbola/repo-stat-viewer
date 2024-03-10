@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jammy as base
+FROM eclipse-temurin:21-jammy as base
 WORKDIR /app
 COPY .mvn ./.mvn
 COPY mvnw pom.xml ./
@@ -13,7 +13,7 @@ FROM build as Development
 EXPOSE 9000
 CMD ["./mvnw","spring-boot:run"]
 
-FROM eclipse-temurin:17-jre-jammy as Production
+FROM eclipse-temurin:21 as Production
 EXPOSE 9000
 COPY --from=build /app/target/repo-statviewer-*.jar /repo-statviewer.jar
 CMD ["java","-jar","/repo-statviewer.jar"]

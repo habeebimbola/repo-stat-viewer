@@ -1,7 +1,6 @@
 package com.repoviewer.rest;
 
 import com.repoviewer.domain.validation.ApiValidationErrorBuilder;
-import com.repoviewer.github.client.error.GitHubClientError;
 import com.repoviewer.github.client.service.GithubClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,42 +31,6 @@ public class GitRepoDataController {
 
         return ResponseEntity.ok().body(githubClient.getWeeklyCommit(owner, repo));
 
-
-//        RequestEntity<?> getWeekCommitRequest = RequestEntity.get(apiConfigProperties.getWeeklyCommitUrl(),  owner, repo).
-//                header("Accept",apiConfigProperties.getAcceptMediaType()).
-//                header("Authorization", "Bearer "+apiConfigProperties.getGitToken()).
-//                header(apiConfigProperties.getAcceptVersion()).
-//                build();
-//
-//        Map<String, String> requestParametersMap = new HashMap<>();
-//        requestParametersMap.put("owner", owner);
-//        requestParametersMap.put("repo", repo);
-//
-//       ResponseEntity<List<List<Integer>>> weeklyCommitResponseEntity = restTemplate.exchange(apiConfigProperties.getWeeklyCommitUrl(),
-//               HttpMethod.GET,
-//               getWeekCommitRequest,
-//               new ParameterizedTypeReference<>() {
-//               },
-//               requestParametersMap);
-//
-//        HttpStatusCode statusCode = weeklyCommitResponseEntity.getStatusCode();
-//
-//        if(statusCode == HttpStatus.ACCEPTED)
-//        {
-//            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-//        }
-//        if (weeklyCommitResponseEntity.getStatusCode() == HttpStatus.OK)
-//        {
-//
-//            Objects.requireNonNull(weeklyCommitResponseEntity.getBody()).forEach((weeklyCommitResponseDto -> {
-//                weeklyCommitResponseDto.forEach((weeklyCommitEntry -> { LOGGER.info(" "+weeklyCommitEntry);}));
-//            }));
-//
-//            return ResponseEntity.status(statusCode).body( new WeeklyCommitResponseDto( weeklyCommitResponseEntity.getBody()));
-//        }
-//
-//
-//        return ResponseEntity.status(weeklyCommitResponseEntity.getStatusCode()).build();
     }
 
     @GetMapping("/lastYear/{owner}/{repo}")

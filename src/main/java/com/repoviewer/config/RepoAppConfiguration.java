@@ -17,8 +17,7 @@ public class RepoAppConfiguration {
     @Bean
     public RestTemplate createRestTemplate()
     {
-        RestTemplate restTemplate = new  RestTemplateBuilder().build();
-        return restTemplate;
+        return new  RestTemplateBuilder().build();
     }
 
 }
