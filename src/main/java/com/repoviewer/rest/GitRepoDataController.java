@@ -1,7 +1,7 @@
 package com.repoviewer.rest;
 
 import com.repoviewer.domain.validation.ApiValidationErrorBuilder;
-import com.repoviewer.github.client.service.GithubClient;
+import com.repoviewer.github.client.service.GithubIntegrationClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class GitRepoDataController {
     private static final Logger LOGGER = LoggerFactory.getLogger(GitRepoDataController.class);
 
     @Autowired
-    private GithubClient githubClient;
+    private GithubIntegrationClient githubIntegrationClient;
 
     @GetMapping(path = "/dailyCommit/{owner}/{repo}")
     public ResponseEntity<?> getWeeklyCommit( @PathVariable("owner") String owner,
@@ -29,7 +29,7 @@ public class GitRepoDataController {
             return ResponseEntity.badRequest().body(ApiValidationErrorBuilder.fromStringErrors(List.of("Invalid Owner/Repo Name Format.")));
         }
 
-        return ResponseEntity.ok().body(githubClient.getWeeklyCommit(owner, repo));
+        return ResponseEntity.ok().body(githubIntegrationClient.getWeeklyCommit(owner, repo));
 
     }
 
@@ -41,7 +41,7 @@ public class GitRepoDataController {
             return ResponseEntity.badRequest().body(ApiValidationErrorBuilder.fromStringErrors(List.of("Invalid Owner/Repo Name Format.")));
         }
 
-        return ResponseEntity.ok(this.githubClient.getLastYearCommit(repoOwner,repoName));
+        return ResponseEntity.ok(this.githubIntegrationClient.getLastYearCommit(repoOwner,repoName));
 
     }
 
@@ -53,7 +53,7 @@ public class GitRepoDataController {
             return ResponseEntity.badRequest().body(ApiValidationErrorBuilder.fromStringErrors(List.of("Invalid Owner/Repo Name Format.")));
         }
 
-        return ResponseEntity.status(HttpStatus.OK). body(githubClient.getAllContributors(repoOwner,repoName));
+        return ResponseEntity.status(HttpStatus.OK). body(githubIntegrationClient.getAllContributors(repoOwner,repoName));
     }
 
     @GetMapping(path = "/weeklyParticipation/{owner}/{repo}")
@@ -63,7 +63,7 @@ public class GitRepoDataController {
         {
             return ResponseEntity.badRequest().body(ApiValidationErrorBuilder.fromStringErrors(List.of("Invalid Owner/Repo Name Format.")));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(githubClient.getWeeklyCommitParticipation(repoOwner,repoName)) ;
+        return ResponseEntity.status(HttpStatus.OK).body(githubIntegrationClient.getWeeklyCommitParticipation(repoOwner,repoName)) ;
     }
 
     @GetMapping(path = "/hourlyCommit/{owner}/{repo}")
@@ -72,7 +72,7 @@ public class GitRepoDataController {
         {
             return ResponseEntity.badRequest().body(ApiValidationErrorBuilder.fromStringErrors(List.of("Invalid Owner/Repo Name Format.")));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(githubClient.getHourlyCommits(repoOwner,repoName));
+        return ResponseEntity.status(HttpStatus.OK).body(githubIntegrationClient.getHourlyCommits(repoOwner,repoName));
     }
 
 

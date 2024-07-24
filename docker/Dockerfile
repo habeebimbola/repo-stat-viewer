@@ -1,9 +1,9 @@
 FROM eclipse-temurin:21-jammy as base
 WORKDIR /app
-COPY .mvn ./.mvn
-COPY mvnw pom.xml ./
+COPY ../.mvn ./.mvn
+COPY ../mvnw pom.xml ./
 RUN ./mvnw dependency:resolve
-COPY src src
+COPY ../src src
 RUN ./mvnw package
 
 FROM base as build

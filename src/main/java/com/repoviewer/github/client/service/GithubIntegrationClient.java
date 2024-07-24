@@ -20,14 +20,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class GithubClient {
+public class GithubIntegrationClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(GithubClient.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(GithubIntegrationClient.class);
     private final RestTemplate restTemplate;
     private final ApiConfigProperties apiConfigProperties;
 
 
-    public GithubClient(RestTemplate restTemplate, ApiConfigProperties apiConfigProperties) {
+    public GithubIntegrationClient(RestTemplate restTemplate, ApiConfigProperties apiConfigProperties) {
         this.restTemplate = restTemplate;
         this.apiConfigProperties = apiConfigProperties;
         this.restTemplate.setErrorHandler(new GitHubClientError());

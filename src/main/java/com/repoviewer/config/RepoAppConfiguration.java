@@ -11,9 +11,6 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class RepoAppConfiguration {
 
-    @Autowired
-    private ApiConfigProperties apiConfigProperties;
-
     @Bean
     public RestTemplate createRestTemplate()
     {

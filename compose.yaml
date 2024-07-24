@@ -19,6 +19,7 @@ services:
     build:
         context: .
         target: Production
+        dockerfile: docker/Dockerfile
     depends_on:
       - repo-statviewer-db
 #    secrets:
