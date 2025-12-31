@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.util.List;
 
 @RestController
@@ -24,6 +26,9 @@ public class GitRepoDataController {
     public ResponseEntity<?> getWeeklyCommit( @PathVariable("owner") String owner,
                                              @PathVariable("repo") String repo)
     {
+        var client = HttpClient.newBuilder();
+        var request = HttpRequest.newBuilder();
+
         if(ApiValidationErrorBuilder.wrongInputParameters(owner,repo))
         {
             return ResponseEntity.badRequest().body(ApiValidationErrorBuilder.fromStringErrors(List.of("Invalid Owner/Repo Name Format.")));

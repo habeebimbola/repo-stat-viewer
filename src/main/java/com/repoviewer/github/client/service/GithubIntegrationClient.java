@@ -2,7 +2,6 @@ package com.repoviewer.github.client.service;
 
 import com.repoviewer.config.ApiConfigProperties;
 import com.repoviewer.domain.dto.*;
-import com.repoviewer.github.client.error.GitHubClientError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
@@ -30,7 +29,6 @@ public class GithubIntegrationClient {
     public GithubIntegrationClient(RestTemplate restTemplate, ApiConfigProperties apiConfigProperties) {
         this.restTemplate = restTemplate;
         this.apiConfigProperties = apiConfigProperties;
-        this.restTemplate.setErrorHandler(new GitHubClientError());
     }
 
    public List<WeeklyCommitEntry> getWeeklyCommit(String owner, String repoName)

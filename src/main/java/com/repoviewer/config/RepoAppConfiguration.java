@@ -1,20 +1,40 @@
 package com.repoviewer.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
 
 @Configuration
 public class RepoAppConfiguration {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RepoAppConfiguration.class);
+
     @Bean
     public RestTemplate createRestTemplate()
     {
-        return new  RestTemplateBuilder().build();
+        return new RestTemplateBuilder().errorHandler(responseErrorHandler()).build();
+    }
+
+    private ResponseErrorHandler responseErrorHandler(){
+        return new DefaultResponseErrorHandler(){
+            @Override
+          protected void handleError(ClientHttpResponse response, HttpStatusCode statusCode) throws IOException {
+                LOGGER.error(response.toString());
+                LOGGER.error(StreamUtils.copyToString(response.getBody(), Charset.defaultCharset()));
+          }
+        };
+
     }
 
 }
