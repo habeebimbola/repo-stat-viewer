@@ -1,4 +1,3 @@
-version: '2'
 services:
   repo-statviewer-db:
     image: postgres
@@ -21,7 +20,8 @@ services:
         target: Production
         dockerfile: docker/Dockerfile
     depends_on:
-      - repo-statviewer-db
+       repo-statviewer-db:
+         condition: service_started
 #    secrets:
 #      - git_token.env
     ports:
@@ -35,11 +35,13 @@ services:
     networks:
       repo-statviewer-network:
 
+
 volumes:
   repo_statviewer_api_data:
 
 networks:
   repo-statviewer-network:
+    driver: bridge
 
 
 secrets:

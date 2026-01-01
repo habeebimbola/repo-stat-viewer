@@ -29,7 +29,7 @@ public class RepoAppConfiguration {
     private ResponseErrorHandler responseErrorHandler(){
         return new DefaultResponseErrorHandler(){
             @Override
-          protected void handleError(ClientHttpResponse response, HttpStatusCode statusCode) throws IOException {
+          public void handleError(ClientHttpResponse response) throws IOException {
                 LOGGER.error(response.toString());
                 LOGGER.error(StreamUtils.copyToString(response.getBody(), Charset.defaultCharset()));
           }
