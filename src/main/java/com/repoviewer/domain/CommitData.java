@@ -1,8 +1,8 @@
 package com.repoviewer.domain;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
+@Entity
 @Table(name="COMMIT_DATA")
 public class CommitData {
 
