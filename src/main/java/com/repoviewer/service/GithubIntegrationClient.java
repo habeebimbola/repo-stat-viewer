@@ -1,4 +1,4 @@
-package com.repoviewer.github.client.service;
+package com.repoviewer.service;
 
 import com.repoviewer.config.ApiConfigProperties;
 import com.repoviewer.domain.dto.*;

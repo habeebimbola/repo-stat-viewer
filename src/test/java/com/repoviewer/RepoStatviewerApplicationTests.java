@@ -2,7 +2,7 @@ package com.repoviewer;
 
 import com.repoviewer.config.ApiConfigProperties;
 import com.repoviewer.domain.dto.WeeklyCommitEntry;
-import com.repoviewer.github.client.service.GithubIntegrationClient;
+import com.repoviewer.service.GithubIntegrationClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;

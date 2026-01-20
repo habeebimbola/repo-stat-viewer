@@ -1,7 +1,7 @@
 package com.repoviewer.rest;
 
 import com.repoviewer.domain.validation.ApiValidationErrorBuilder;
-import com.repoviewer.github.client.service.GithubIntegrationClient;
+import com.repoviewer.service.GithubIntegrationClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
