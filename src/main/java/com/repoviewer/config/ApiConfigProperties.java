@@ -56,36 +56,4 @@ public class ApiConfigProperties {
     public String getGitToken() {
         return gitToken;
     }
-
-    public void setWeeklyCommitUrl(String weeklyCommitUrl) {
-        this.weeklyCommitUrl = weeklyCommitUrl;
-    }
-
-    public void setLastYearCommitUrl(String lastYearCommitUrl) {
-        this.lastYearCommitUrl = lastYearCommitUrl;
-    }
-
-    public void setAllContributorCommitUrl(String allContributorCommitUrl) {
-        this.allContributorCommitUrl = allContributorCommitUrl;
-    }
-
-    public void setWeeklyCommitParticipationUrl(String weeklyCommitParticipationUrl) {
-        this.weeklyCommitParticipationUrl = weeklyCommitParticipationUrl;
-    }
-
-    public void setHourlyCommitUrl(String hourlyCommitUrl) {
-        this.hourlyCommitUrl = hourlyCommitUrl;
-    }
-
-    public void setAcceptVersion(String acceptVersion) {
-        this.acceptVersion = acceptVersion;
-    }
-
-    public void setAcceptMediaType(String acceptMediaType) {
-        this.acceptMediaType = acceptMediaType;
-    }
-
-    public void setGitToken(String gitToken) {
-        this.gitToken = gitToken;
-    }
 }
